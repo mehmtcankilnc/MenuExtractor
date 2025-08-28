@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Menü Toplayıcı</title>
+    <style>
+      body {
+        font: 13px/1.4 -apple-system, Segoe UI, Roboto, Arial;
+        margin: 12px;
+        min-width: 360px;
+      }
+      .row {
+        margin-bottom: 8px;
+      }
+      button {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+      button.primary {
+        background: #0d6efd;
+        color: #fff;
+        border-color: #0d6efd;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .muted {
+        color: #666;
+      }
+      .mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      #log {
+        white-space: pre-wrap;
+        background: #fafafa;
+        border: 1px solid #eee;
+        padding: 8px;
+        border-radius: 6px;
+        max-height: 180px;
+        overflow: auto;
+      }
+      #payloadSelect {
+        width: 100%;
+      }
+      .btn-row {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <strong>Site:</strong> <span id="site" class="mono">-</span>
+    </div>
+
+    <div class="row">
+      <button id="startBtn" class="primary">Menüyü Çek</button>
+      <button id="stopBtn">Durdur</button>
+    </div>
+
+    <div class="row">
+      <div class="row"><strong>Kaydedilenler</strong></div>
+      <select id="payloadSelect" size="5"></select>
+      <div class="btn-row" style="margin-top: 6px">
+        <button id="downloadSelectedBtn" class="primary" disabled>
+          Seçileni İndir
+        </button>
+        <button id="deleteSelectedBtn" disabled>Seçileni Sil</button>
+        <button id="clearAllBtn" disabled>Tümünü Temizle</button>
+      </div>
+      <div id="meta" class="muted mono" style="margin-top: 6px"></div>
+    </div>
+
+    <div class="row muted">Durum / Log:</div>
+    <div id="log" class="row"></div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

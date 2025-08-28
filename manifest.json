@@ -1,0 +1,43 @@
+{
+  "name": "Menu Sniffer",
+  "version": "1.0.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@menu-sniffer-mehmtcankilinc"
+    }
+  },
+  "description": "Yemeksepeti, GetirYemek, MigrosYemek, TrendyolYemek sitelerindeki restoran menülerini kazır ve JSON formatında verir.",
+  "manifest_version": 3,
+  "permissions": ["downloads", "storage"],
+  "background": { "service_worker": "lib/background.js" },
+  "host_permissions": [
+    "https://www.yemeksepeti.com/*",
+    "https://www.migros.com.tr/*",
+    "https://getir.com/yemek/restoran/*",
+    "https://tgoyemek.com/restoranlar/*",
+    "https://tr.fd-api.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.yemeksepeti.com/*",
+        "https://www.migros.com.tr/*",
+        "https://getir.com/yemek/restoran/*",
+        "https://tgoyemek.com/restoranlar/*"
+      ],
+      "js": ["lib/content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_title": "Menu Sniffer",
+    "default_popup": "lib/popup.html",
+    "default_icon": {
+      "1024": "assets/icon.png"
+    }
+  },
+  "icons": {
+    "1024": "assets/icon.png"
+  }
+}
