@@ -4,79 +4,137 @@
     <meta charset="utf-8" />
     <title>Menü Toplayıcı</title>
     <style>
-      body {
-        font: 13px/1.4 -apple-system, Segoe UI, Roboto, Arial;
-        margin: 12px;
-        min-width: 360px;
+      :root {
+        --bg: #f7f7fb;
+        --text: #111827;
+        --muted: #6b7280;
+        --primary: #5b72f2;
+        --primary-600: #4f64d6;
+        --border: #e5e7eb;
+        --card: #ffffff;
       }
-      .row {
+      * { box-sizing: border-box; }
+      body {
+        font: 13px/1.45 -apple-system, Segoe UI, Roboto, Arial;
+        margin: 0;
+        min-width: 360px;
+        color: var(--text);
+        background: linear-gradient(180deg, #f4f6ff 0%, var(--bg) 60%);
+      }
+      .container {
+        padding: 12px;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        background: linear-gradient(90deg, var(--card), #f1f3ff);
+        border-bottom: 1px solid var(--border);
+      }
+      .header img {
+        width: 20px;
+        height: 20px;
+      }
+      .header-title {
+        font-weight: 600;
+      }
+      .row { margin-bottom: 8px; }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px;
+        box-shadow: 0 1px 0 rgba(0,0,0,.02);
+        margin-bottom: 10px;
+      }
+      .section-title {
+        font-weight: 600;
         margin-bottom: 8px;
       }
       button {
-        padding: 6px 10px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--text);
         cursor: pointer;
+        transition: all .15s ease;
       }
+      button:hover { transform: translateY(-1px); }
       button.primary {
-        background: #0d6efd;
+        background: var(--primary);
         color: #fff;
-        border-color: #0d6efd;
+        border-color: var(--primary);
       }
-      button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-      .muted {
-        color: #666;
-      }
-      .mono {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      }
-      #log {
-        white-space: pre-wrap;
-        background: #fafafa;
-        border: 1px solid #eee;
-        padding: 8px;
-        border-radius: 6px;
-        max-height: 180px;
-        overflow: auto;
+      button.primary:hover { background: var(--primary-600); }
+      button:disabled { opacity: .6; cursor: not-allowed; }
+      .muted { color: var(--muted); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .badge {
+        display: inline-block;
+        background: #eef2ff;
+        color: #3b49df;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid #e0e7ff;
       }
       #payloadSelect {
         width: 100%;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        padding: 6px;
+        background: var(--card);
       }
-      .btn-row {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
+      .btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
+      #log {
+        white-space: pre-wrap;
+        background: #0b1025;
+        color: #d1d5db;
+        border: 1px solid #0f1533;
+        padding: 10px;
+        border-radius: 10px;
+        max-height: 200px;
+        overflow: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
       }
+      #meta { margin-top: 6px; }
+      .actions { display: flex; gap: 8px; }
     </style>
   </head>
   <body>
-    <div class="row">
-      <strong>Site:</strong> <span id="site" class="mono">-</span>
+    <div class="header">
+      <img src="../assets/icon.png" alt="Icon" />
+      <div class="header-title">Menü Toplayıcı</div>
     </div>
-
-    <div class="row">
-      <button id="startBtn" class="primary">Menüyü Çek</button>
-      <button id="stopBtn">Durdur</button>
-    </div>
-
-    <div class="row">
-      <div class="row"><strong>Kaydedilenler</strong></div>
-      <select id="payloadSelect" size="5"></select>
-      <div class="btn-row" style="margin-top: 6px">
-        <button id="downloadSelectedBtn" class="primary" disabled>
-          Seçileni İndir
-        </button>
-        <button id="deleteSelectedBtn" disabled>Seçileni Sil</button>
-        <button id="clearAllBtn" disabled>Tümünü Temizle</button>
+    <div class="container">
+      <div class="card">
+        <div class="row">
+          <strong>Site:</strong> <span id="site" class="badge mono">-</span>
+        </div>
+        <div class="actions">
+          <button id="startBtn" class="primary">Menüyü Çek</button>
+          <button id="stopBtn">Durdur</button>
+        </div>
       </div>
-      <div id="meta" class="muted mono" style="margin-top: 6px"></div>
-    </div>
 
-    <div class="row muted">Durum / Log:</div>
-    <div id="log" class="row"></div>
+      <div class="card">
+        <div class="section-title">Kaydedilenler</div>
+        <select id="payloadSelect" size="6"></select>
+        <div class="btn-row" style="margin-top: 8px">
+          <button id="downloadSelectedBtn" class="primary" disabled>Seçileni İndir</button>
+          <button id="deleteSelectedBtn" disabled>Seçileni Sil</button>
+          <button id="clearAllBtn" disabled>Tümünü Temizle</button>
+        </div>
+        <div id="meta" class="muted mono"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Durum / Log</div>
+        <div id="log"></div>
+      </div>
+    </div>
 
     <script src="popup.js"></script>
   </body>

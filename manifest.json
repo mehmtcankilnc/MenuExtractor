@@ -8,7 +8,7 @@
   },
   "description": "Yemeksepeti, GetirYemek, MigrosYemek, TrendyolYemek sitelerindeki restoran menülerini kazır ve JSON formatında verir.",
   "manifest_version": 3,
-  "permissions": ["downloads", "storage"],
+  "permissions": ["downloads", "storage", "scripting"],
   "background": { "service_worker": "lib/background.js" },
   "host_permissions": [
     "https://www.yemeksepeti.com/*",
